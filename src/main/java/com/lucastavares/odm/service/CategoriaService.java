@@ -2,6 +2,7 @@ package com.lucastavares.odm.service;
 
 import com.lucastavares.odm.domain.Categoria;
 import com.lucastavares.odm.repository.CategoriaRepository;
+import com.lucastavares.odm.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,8 @@ public class CategoriaService {
     CategoriaRepository repo;
 
     public Categoria buscar(Integer id){
-        Optional<Categoria> obj = repo.findById(id);
-        return obj.orElseThrow(null);
+     Optional<Categoria> obj = repo.findById(id);
+     return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado ! Id : " + id +
+             ", Tipo: "+ Categoria.class.getName()));
     }
 }
