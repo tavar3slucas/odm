@@ -1,13 +1,8 @@
 package com.lucastavares.odm;
 
-import com.lucastavares.odm.domain.Categoria;
-import com.lucastavares.odm.domain.Cidade;
-import com.lucastavares.odm.domain.Estado;
-import com.lucastavares.odm.domain.Produto;
-import com.lucastavares.odm.repository.CategoriaRepository;
-import com.lucastavares.odm.repository.CidadeRepository;
-import com.lucastavares.odm.repository.EstadoRepository;
-import com.lucastavares.odm.repository.ProdutoRepository;
+import com.lucastavares.odm.domain.*;
+import com.lucastavares.odm.domain.enums.TipoCliente;
+import com.lucastavares.odm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +27,11 @@ public class OdmApplication implements CommandLineRunner {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OdmApplication.class, args);
@@ -70,6 +70,16 @@ public class OdmApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 
+		Cliente cli1 = new Cliente(null,"mariasilva@gmail.com",
+				"maria silva","36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 
+		Endereco e1 = new Endereco(null,"Rua flores","300","Apto 303","Jardim","38220834",cli1,c1);
+		Endereco e2 = new Endereco(null,"Avenida Matos","105","Sala 800","Centro","38777012",cli1,c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 }
