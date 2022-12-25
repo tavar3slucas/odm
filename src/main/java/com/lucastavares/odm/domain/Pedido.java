@@ -5,13 +5,16 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1l;
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date createdAt;
     @OneToOne(cascade = CascadeType.ALL, mappedBy ="pedido")
@@ -23,6 +26,9 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
 
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
+
     public Pedido(){}
 
     public Pedido(Integer id, Date createdAt, Cliente cliente, Endereco enderecoDeEntrega) {
@@ -30,6 +36,14 @@ public class Pedido implements Serializable {
         this.createdAt = createdAt;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     public Integer getId() {
