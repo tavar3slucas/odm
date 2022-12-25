@@ -1,5 +1,6 @@
 package com.lucastavares.odm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lucastavares.odm.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
@@ -9,7 +10,9 @@ import java.util.Date;
 public class PagamentoBoleto extends Pagamento {
 
     private static final long serialVersionUID = 1l;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataVencimendo;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataPagamento;
 
     public PagamentoBoleto(){}

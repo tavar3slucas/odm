@@ -101,7 +101,7 @@ public class OdmApplication implements CommandLineRunner {
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO,ped1,6);
 		ped1.setPagamento(pagto1);
 		Pagamento pagto2 = new PagamentoBoleto(null,EstadoPagamento.PENDENTE,
-				ped2,sdf.parse("20/10/2010 00:00"),null);
+				ped2,sdf.parse("20/10/2017 00:00"),null);
 		ped2.setPagamento(pagto2);
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
 
