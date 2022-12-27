@@ -1,5 +1,6 @@
 package com.lucastavares.odm.service;
 
+import com.lucastavares.odm.controller.dto.CategoriaDTO;
 import com.lucastavares.odm.domain.Categoria;
 import com.lucastavares.odm.repository.CategoriaRepository;
 import com.lucastavares.odm.service.exceptions.DataIntegrityExcepction;
@@ -52,5 +53,9 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction),
                 orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(),objDto.getName());
     }
 }
